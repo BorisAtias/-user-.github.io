@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Начало - Личен блог за пътувания</title>
+    <style>
+        /* Base styles for mobile devices */
+        :root {
+            --background-color: #f4f4f4;
+            --text-color: #000000;
+            --header-footer-background: #5274e2;
+            --header-footer-text: #ffffff;
+            --base-font-size: 1rem;
+        }
+        [data-theme="dark"] {
+            --background-color: #181818;
+            --text-color: #ffffff;
+            --header-footer-background: #333333;
+            --header-footer-text: #f4f4f4;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: var(--base-font-size);
+        }
+        header {
+            background-color: var(--header-footer-background);
+            color: var(--header-footer-text);
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .logo {
+            width: 50px;
+            height: auto;
+            display: inline-block;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: var(--header-footer-text);
+            text-decoration: none;
+        }
+        nav ul li a:focus, nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .user-greeting, .logout {
+            display: none;
+            color: var(--header-footer-text);
+            cursor: pointer;
+        }
+        .theme-toggle {
+            margin: 20px;
+            cursor: pointer;
+            color: var(--header-footer-text);
+        }
+        .font-size-toggle {
+            margin: 0px;
+            cursor: pointer;
+            color: var(--header-footer-text);
+        }
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .gallery-item {
+            margin: 10px;
+            width: calc(50% - 20px);
+        }
+        .gallery-item img {
+            max-width: 100%;
+            height: auto;
+        }
+        .trip-cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .trip-card {
+            width: calc(50% - 10px);
+            background-color: var(--background-color);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 10px 0;
+            padding: 10px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .trip-card img {
+            max-width: 100%;
+            height: auto;
+        }
+        .trip-card h3 {
+            margin: 10px 0 5px;
+        }
+        .trip-card a {
+            color: #5274e2;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        footer {
+            background-color: var(--header-footer-background);
+            color: var(--header-footer-text);
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
+        @media (min-width: 768px) {
+            nav ul {
+                flex-direction: row;
+            }
+            nav ul li {
+                margin: 0 10px;
+            }
+            .gallery-item, .trip-card {
+                width: calc(33% - 20px);
+            }
+        }
+        @media (min-width: 992px) {
+            .gallery-item, .trip-card {
+                width: calc(25% - 20px);
+            }
+        }
+        @media (min-width: 1200px) {
+            .gallery-item, .trip-card {
+                width: calc(20% - 20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Website task\Materials\Logo\2bc47c5d-0824-41a6-a9e9-7a65050ca2c7.webp" alt="Лого на блога" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Начало</a></li>
+                <li><a href="home.html">Пътувания</a></li>
+                <li><a href="about.html">За нас</a></li>
+                <li><a href="contact.html">Контакт</a></li>
+                <li><a href="login.html">Профил</a></li>
+                <li class="user-greeting" id="user-greeting"></li>
+                <li class="logout" id="logout" onclick="logoutUser()">Изход</li>
+                <li class="font-size-toggle">
+                    <label for="font-size-selector">Размер на шрифта:</label>
+                    <select id="font-size-selector" onchange="changeFontSize()">
+                        <option value="1">100%</option>
+                        <option value="1.25">125%</option>
+                        <option value="1.5">150%</option>
+                        <option value="1.75">175%</option>
+                        <option value="2">200%</option>
+                    </select>
+                </li>
+            </ul>
+        </nav>
+        <div class="theme-toggle" onclick="toggleTheme()">Смяна на тема</div>
+    </header>
+    <main>
+        <section id="home">
+            <h1>Добре дошли в моя блог за пътувания</h1>
+            <p>Споделям своите приключения и опит от различни места по света.</p>
+        </section>
+        <section class="gallery">
+            <h2>Последни пътувания</h2>
+            <!-- Галерия със снимки -->
+        </section>
+        <section class="trip-cards">
+            <div class="trip-card">
+                <img src="Website task\Materials\Batak\front_page.jpg" alt="Пътуване 1">
+                <h3>Екскурзия до Батак</h3>
+                <a href="Batak.html">Прочетете повече</a>
+            </div>
+            <div class="trip-card">
+                <img src="Website task\Materials\Vitosha\front_page.jpg" alt="Пътуване 2">
+                <h3>Витоша 2024</h3>
+                <a href="Vitosha.html">Прочетете повече</a>
+            </div>
+            <div class="trip-card">
+                <img src="Website task\Materials\Vienna\front_page.jpg" alt="Пътуване 3">
+                <h3>Виена, Австрия 2024</h3>
+                <a href="Vienna.html">Прочетете повече</a>
+            </div>
+            <div class="trip-card">
+                <img src="Website task\Materials\Bregenz\front_page.jpeg" alt="Пътуване 4">
+                <h3>Брегенц, Австрия 2024</h3>
+                <a href="Bregenz.html">Прочетете повече</a>
+            </div>
+            <div class="trip-card">
+                <img src="Website task\Materials\Switzerland\front_page.jpg" alt="Пътуване 5">
+                <h3>Швейцария 2024</h3>
+                <a href="Switzerland.html">Прочетете повече</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Личен блог за пътувания</p>
+    </footer>
+    <script>
+        function showGreeting() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                document.getElementById('user-greeting').textContent = `Здравей, ${loggedInUser}`;
+                document.getElementById('user-greeting').style.display = 'inline';
+                document.getElementById('logout').style.display = 'inline';
+                document.querySelector('a[href="login.html"]').style.display = 'none';
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('loggedInUser');
+            window.location.reload();
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+        }
+
+        function changeFontSize() {
+            const fontSize = document.getElementById('font-size-selector').value;
+            document.documentElement.style.setProperty('--base-font-size', fontSize + 'rem');
+            localStorage.setItem('fontSize', fontSize);
+        }
+
+        function loadFontSize() {
+            const savedFontSize = localStorage.getItem('fontSize') || '1';
+            document.documentElement.style.setProperty('--base-font-size', savedFontSize + 'rem');
+            document.getElementById('font-size-selector').value = savedFontSize;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            showGreeting();
+            loadTheme();
+            loadFontSize();
+        });
+    </script>
+</body>
+</html>

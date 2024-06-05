@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход - Личен блог за пътувания</title>
+    <style>
+        /* Base styles for mobile devices */
+        :root {
+            --background-color: #f4f4f4;
+            --text-color: #000000;
+            --header-footer-background: #5274e2;
+            --header-footer-text: #ffffff;
+            --input-background: #ffffff;
+            --input-text: #000000;
+            --button-background: #5274e2;
+            --button-text: #ffffff;
+            --button-hover: #415bb5;
+            --base-font-size: 1rem;
+        }
+        [data-theme="dark"] {
+            --background-color: #181818;
+            --text-color: #ffffff;
+            --header-footer-background: #333333;
+            --header-footer-text: #f4f4f4;
+            --input-background: #333333;
+            --input-text: #ffffff;
+            --button-background: #444444;
+            --button-text: #ffffff;
+            --button-hover: #555555;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            font-size: var(--base-font-size);
+        }
+        header {
+            background-color: var(--header-footer-background);
+            color: var(--header-footer-text);
+            padding: 10px 0;
+            text-align: center;
+            width: 100%;
+        }
+        .logo {
+            width: 50px;
+            height: auto;
+            display: inline-block;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: var(--header-footer-text);
+            text-decoration: none;
+        }
+        .theme-toggle {
+            margin: 20px;
+            cursor: pointer;
+            color: var(--header-footer-text);
+        }
+        .container {
+            background-color: var(--input-background);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            margin: 50px auto;
+        }
+        .container h1 {
+            margin-bottom: 20px;
+        }
+        .input-container {
+            position: relative;
+            width: 100%;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            background-color: var(--input-background);
+            color: var(--input-text);
+            border: 1px solid #ccc;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            background-color: var(--button-background);
+            color: var(--button-text);
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: var(--button-hover);
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+        }
+        .links {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .user-greeting, .logout {
+            display: none;
+            color: var(--header-footer-text);
+        }
+        .logout {
+            cursor: pointer;
+        }
+        footer {
+            background-color: var(--header-footer-background);
+            color: var(--header-footer-text);
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .font-size-toggle {
+            margin: 0px 0;
+            cursor: pointer;
+            color: var(--header-footer-text);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="Website task\Materials\Logo\2bc47c5d-0824-41a6-a9e9-7a65050ca2c7.webp" alt="Лого на блога" class="logo">
+        <nav>
+            <ul>
+                <li><a href="index.html">Начало</a></li>
+                <li><a href="home.html">Пътувания</a></li>
+                <li><a href="about.html">За нас</a></li>
+                <li><a href="contact.html">Контакт</a></li>
+                <li><a href="login.html">Профил</a></li>
+                <li class="user-greeting" id="user-greeting"></li>
+                <li class="logout" id="logout" onclick="logoutUser()">Изход</li>
+                <li class="font-size-toggle">
+                    <label for="font-size-selector">Размер на шрифта:</label>
+                    <select id="font-size-selector" onchange="changeFontSize()">
+                        <option value="1">100%</option>
+                        <option value="1.25">125%</option>
+                        <option value="1.5">150%</option>
+                        <option value="1.75">175%</option>
+                        <option value="2">200%</option>
+                    </select>
+                </li>
+            </ul>
+        </nav>
+        <div class="theme-toggle" onclick="toggleTheme()">Смяна на тема</div>
+    </header>
+    <footer>
+        <p>&copy; 2024 Личен блог за пътувания</p>
+    </footer>
+    <div class="container" id="login-container">
+        <h1>Вход</h1>
+        <form id="loginForm">
+            <input type="text" id="username" name="username" placeholder="Потребителско име" required>
+            <div class="input-container">
+                <input type="password" id="password" name="password" placeholder="Парола" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility('password')">&#128065;</span>
+            </div>
+            <div class="error" id="error-message"></div>
+            <button type="button" onclick="loginUser()">Вход</button>
+        </form>
+        <div class="links">
+            <a href="password_restore.html">Забравена парола?</a>
+            <a href="register.html">Регистрирай се</a>
+        </div>
+    </div>
+    <script>
+        function loginUser() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            const storedUsername = localStorage.getItem('username');
+            const storedPassword = localStorage.getItem('password');
+
+            if (username === storedUsername && password === storedPassword) {
+                localStorage.setItem('loggedInUser', username);
+                showGreeting();
+            } else {
+                errorMessage.textContent = 'Невалидно потребителско име или парола.';
+            }
+        }
+
+        function togglePasswordVisibility(id) {
+            const passwordInput = document.getElementById(id);
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        }
+
+        function showGreeting() {
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                document.getElementById('login-container').style.display = 'none';
+                document.getElementById('user-greeting').textContent = `Здравей, ${loggedInUser}`;
+                document.getElementById('user-greeting').style.display = 'inline';
+                document.getElementById('logout').style.display = 'inline';
+            }
+        }
+
+        function logoutUser() {
+            localStorage.removeItem('loggedInUser');
+            window.location.reload();
+        }
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = localStorage.getItem('theme');
+            if (currentTheme === 'dark') {
+                setTheme('light');
+            } else {
+                setTheme('dark');
+            }
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            setTheme(savedTheme);
+        }
+
+        function changeFontSize() {
+            const fontSize = document.getElementById('font-size-selector').value;
+            document.documentElement.style.setProperty('--base-font-size', fontSize + 'rem');
+            localStorage.setItem('fontSize', fontSize);
+        }
+
+        function loadFontSize() {
+            const savedFontSize = localStorage.getItem('fontSize') || '1';
+            document.documentElement.style.setProperty('--base-font-size', savedFontSize + 'rem');
+            document.getElementById('font-size-selector').value = savedFontSize;
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            showGreeting();
+            loadTheme();
+            loadFontSize();
+        });
+    </script>
+</body>
+</html>
